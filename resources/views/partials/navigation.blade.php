@@ -5,10 +5,14 @@
         </a>
 
         <div class="d-flex col-8" id="navbarNav">
-            <div class="col-md-8"></div>
-            <div class="col-md-4">
-                <ul class="navbar-nav ">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <ul class="navbar-nav justify-content-evenly">
                     @if (auth()->user())
+                    <li class="nav-item">
+                        <a class="nav-link" href={{ route('event.create') }}> Create an Evenet</a>
+                    </li>
+
                         <li class="nav-item">
                             <a class="nav-link  " href="#">Welcome {{ auth()->user()->name }}</a>
                         </li>

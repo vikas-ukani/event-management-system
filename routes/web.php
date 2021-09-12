@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Events\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,15 +26,9 @@ Route::post('register', [AuthController::class, 'register'])->name('register');
 
 /** All Authenticated Routes */
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/search', [UserController::class, 'search'])->name('search');
-    Route::get('/dashboard', [UserController::class, 'getUsers'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Route::resource('/users', 'UserController'); /** Unable to work somehow */
-    Route::delete('/users-destroy/{user}', [UserController::class, 'delete'])->name('users.destroy');
-    Route::get('/users-show/{user}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/users-edit/{user}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users-update/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::put('/users-update/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::resource('event', EventController::class);
 });
 
 
