@@ -12,5 +12,46 @@
 5. Calender Event Management and Scheduled Events
 6. Logout.
 7. New features on the way...
+
+
+### Tech Stack
+
+- LAMP Stack - Use Laravel Framework, Mysql DB
+- Frontend - Bootstrap with Blade Template with Javascript
+- Github - for version control
+
+## Installation Process.
+
+#### Clone the Repo via this command.
+```
+git clone https://github.com/vikas-ukani/event-management-system
+```
+
+#### Install compose pacakges.
+```
+composer install
+```
+
+#### copy .env from .env.example
+```
+cp .env.example .env
+```
+
+#### Generate App key.
+```
+php artisan key:generate
+```
+
+#### Database Migration 
+```
+php artisan migrate
+```
+
+#### Run Project
+```
+php artisan serve
+```
+
+
 ## SnapShots
 ![Event Management](public/Event-metting.png)
