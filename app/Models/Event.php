@@ -45,16 +45,33 @@ class Event extends Model
         return $this->attributes['user_id'] = Auth::id();
     }
 
+    /**
+     * Get Carbon Converted Date for Start Time
+     *
+     * @param [type] $date
+     * @return void
+     */
     public function getStartTimeAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('hh:mm');
     }
 
+    /**
+     * Get Carbon Converted Date for End Time
+     *
+     * @param [type] $date
+     * @return void
+     */
     public function getEndTimeAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('hh:mm');
     }
 
+    /**
+     * Event related to Schedules
+     *
+     * @return void
+     */
     public function schedules()
     {
         return $this->hasMany(Schedule::class, 'event_id', 'id');

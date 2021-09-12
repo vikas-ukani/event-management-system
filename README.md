@@ -4,7 +4,7 @@
 ## About Project
 - An complete user event managements system handled by each user it self.
 
-### Features 
+## Features 
 1. Login 
 2. Registration
 3. Dashboard
@@ -14,7 +14,7 @@
 7. New features on the way...
 
 
-### Tech Stack
+## Tech Stack
 
 - LAMP Stack - Use Laravel Framework, Mysql DB
 - Frontend - Bootstrap with Blade Template with Javascript
@@ -22,32 +22,37 @@
 
 ## Installation Process.
 
-#### Clone the Repo via this command.
+### Clone the Repo via this command.
 ```
 git clone https://github.com/vikas-ukani/event-management-system
 ```
 
-#### Install compose pacakges.
+### Install compose packages.
 ```
 composer install
 ```
 
-#### copy .env from .env.example
+### copy .env from .env.example
 ```
 cp .env.example .env
 ```
 
-#### Generate App key.
+### Generate App key.
 ```
 php artisan key:generate
 ```
 
-#### Database Migration 
+### Database Migration 
 ```
 php artisan migrate
 ```
 
-#### Run Project
+---
+OR
+---
+
+### Use Exported Database from `./database/` directory.
+### Run Project
 ```
 php artisan serve
 ```

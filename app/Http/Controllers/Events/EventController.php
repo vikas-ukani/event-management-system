@@ -21,6 +21,7 @@ class EventController extends Controller
      */
     public function index()
     {
+        # PASS
     }
 
     /**
@@ -33,30 +34,8 @@ class EventController extends Controller
         return view('event.create');
     }
 
-    public function getWeekDayInRange($weekday, $dateFromString, $dateToString, $format = 'Y-m-d')
-    {
-        $dateFrom = new \DateTime($dateFromString);
-        $dateTo = new \DateTime($dateToString);
-        $dates = [];
-
-        if ($dateFrom > $dateTo) {
-            return $dates;
-        }
-
-        if (date('N', strtotime($weekday)) != $dateFrom->format('N')) {
-            $dateFrom->modify("next $weekday");
-        }
-
-        while ($dateFrom <= $dateTo) {
-            $dates[] = $dateFrom->format($format);
-            $dateFrom->modify('+1 week');
-        }
-
-        return $dates;
-    }
-
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created event to schedule events.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -65,24 +44,27 @@ class EventController extends Controller
     {
         $input = $request->validated();
 
+        /** get Date and Time for Start Date */
         $startingDate = Carbon::parse($input['start_time'], env('APP_TIMEZONE'))->format('Y-m-d');
         $startingTime = Carbon::parse($input['start_time'], env('APP_TIMEZONE'))->format('H:i');
 
+        /** get Date and Time for End Date */
         $ending90Date = Carbon::parse($startingDate, env('APP_TIMEZONE'))->addDays(90)->format('Y-m-d');
         $endingTime = Carbon::parse($input['end_time'], env('APP_TIMEZONE'))->format('H:i');
 
-        $input['user_id']  =Auth::id();
+        $input['user_id'] = Auth::id();
         $event = Event::create($input);
         if ($event->id) {
-            $allDayOfWeekRange = $this->getWeekDayInRange(
+            $allDayOfWeekRange = $this->getWeekDaysInRange(
                 $input['day_of_the_week'],
                 $startingDate,
-                $ending90Date,
-                'Y-m-d'
+                $ending90Date
             );
 
             $scheduledEventDates = [];
+            /** Refactor Schedule Events Records */
             foreach ($allDayOfWeekRange as $date) {
+                /** Extract Hour and Minutes for saving Date to Schedulers. */
                 [$hour, $minute] = explode(':', $startingTime);
                 $scheduledEventDates[] = [
                     'event_id' => $event->id,
@@ -104,7 +86,7 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        # PASS
     }
 
     /**
@@ -115,7 +97,7 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        # PASS
     }
 
     /**
@@ -127,7 +109,7 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        # PASS
     }
 
     /**
@@ -138,6 +120,6 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        # PASS
     }
 }

@@ -27,7 +27,11 @@ class Schedule extends Model
         'date' => 'datetime',
     ];
 
-
+    /**
+     * Schedule Related with Events
+     *
+     * @return void
+     */
     public function event()
     {
         return $this->hasOne(Event::class, 'id', 'event_id');
