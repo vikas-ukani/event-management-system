@@ -55,4 +55,10 @@ class User extends Authenticatable
     {
         return $this->attributes['password'] = Hash::make($value);
     }
+
+public function events()
+{
+    return $this->hasMany(Event::class, 'user_id', 'id');
+}
+
 }

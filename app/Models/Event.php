@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Event extends Model
 {
@@ -19,6 +20,7 @@ class Event extends Model
      */
     protected $fillable = [
         'name',
+        'user_id',
         'description',
         'start_time',
         'end_time',
@@ -26,9 +28,22 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'start_time' => 'date:hh:mm',
-        'end_time' => 'date:hh:mm'
+        'start_time' => 'datetime',
+        'end_time' => 'datetime'
     ];
+
+
+    /**
+     * Set the user's id.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setUserIdAttribute($value)
+    {
+        // dd('user', Auth::id());
+        return $this->attributes['user_id'] = Auth::id();
+    }
 
     public function getStartTimeAttribute($date)
     {
@@ -38,5 +53,10 @@ class Event extends Model
     public function getEndTimeAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('hh:mm');
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'event_id', 'id');
     }
 }
